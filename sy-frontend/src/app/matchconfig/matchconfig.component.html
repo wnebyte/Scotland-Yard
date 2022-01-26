@@ -1,0 +1,85 @@
+<h2>Match Configurator</h2>
+<mat-form-field appearance="fill">
+	<mat-label for="boards">Select a board:</mat-label>
+	<mat-select id="boards" name="boards">
+		<mat-option *ngFor="let board of boards"
+			value={{board.id}}
+			(click)="onSelect(board)">
+			{{board.name}}
+		</mat-option>
+	</mat-select>
+</mat-form-field>
+<div *ngIf="createdMatchUUID">
+</div>
+<div *ngIf="selectedBoard">
+	<form [formGroup]="nameForm">
+		<mat-form-field appearance="fill">
+			<input type="hidden" formControlName="boardId"/>
+			<mat-label> Enter name for match</mat-label>
+			<input matInput type="text" formControlName="name"/>
+		</mat-form-field>
+	</form>
+	<h3>{{selectedBoard.name}} Board Configuration</h3>
+	<form [formGroup]="configForm" (ngSubmit)="onSubmit()">
+		<input type="hidden" formControlName="boardId"/>
+		<p>
+			<mat-form-field appearance="fill">
+				<mat-label> Number of detectives:</mat-label>
+				<input matInput type="number" formControlName="nrOfDetectives"/>
+			</mat-form-field>
+			<mat-form-field appearance="fill">
+				<mat-label> Number of turns:</mat-label>
+				<input matInput type="number" formControlName="nrOfTurns"/>
+			</mat-form-field>
+		</p>
+		<p>
+			<mat-form-field appearance="fill">
+				<mat-label> Starting positions: </mat-label>
+				<input matInput type="text" pattern="([0-9]+\s*[,]\s*)*[0-9]+" formControlName="startingPositions"/>
+			</mat-form-field>
+			<mat-form-field appearance="fill">
+				<mat-label> Mr. X's surfacing turns:</mat-label>
+				<input matInput type="text" pattern="([0-9]+\s*[,]\s*)*[0-9]+" formControlName="surfacingTurns"/>
+			</mat-form-field>
+		</p>
+		<h4>Tickets per Detective</h4>
+		<p>
+			<mat-form-field appearance="fill">
+				<mat-label>Taxi tickets:</mat-label>
+				<input matInput type="number" formControlName="taxiPerDetective"/>
+			</mat-form-field>
+			<mat-form-field appearance="fill">
+				<mat-label>Bus tickets:</mat-label>
+				<input matInput type="number" formControlName="busPerDetective"/>
+			</mat-form-field>
+			<mat-form-field appearance="fill">
+				<mat-label>Underground tickets:</mat-label>
+				<input matInput type="number" formControlName="undergroundPerDetective"/>
+			</mat-form-field>
+			<mat-form-field appearance="fill">
+				<mat-label>Black tickets:</mat-label>
+				<input matInput type="number" formControlName="blackPerDetective"/>
+			</mat-form-field>
+		</p>
+		<h4>Tickets for Mr. X</h4>
+		<p>
+			<mat-form-field appearance="fill">
+				<mat-label>Taxi tickets:</mat-label>
+				<input matInput type="number" formControlName="taxiForMrX"/>
+			</mat-form-field>
+			<mat-form-field appearance="fill">
+				<mat-label>Bus tickets:</mat-label>
+				<input matInput type="number" formControlName="busForMrX"/>
+			</mat-form-field>
+			<mat-form-field appearance="fill">
+				<mat-label>Underground tickets:</mat-label>
+				<input matInput type="number" formControlName="undergroundForMrX"/>
+			</mat-form-field>
+			<mat-form-field appearance="fill">
+				<mat-label>Black tickets:</mat-label>
+				<input matInput type="number" formControlName="blackForMrX"/>
+			</mat-form-field>
+		</p>
+		<button mat-raised-button color="primary" type="submit">Submit</button>
+	</form>
+</div>

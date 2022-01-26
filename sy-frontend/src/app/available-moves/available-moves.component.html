@@ -1,0 +1,5 @@
+Available moves:
+<button mat-raised-button *ngFor="let move of moves"
+	color="primary" (click)="onMoveSelected(move)">
+	{{move.destination}} by {{move.transport}}
+</button>

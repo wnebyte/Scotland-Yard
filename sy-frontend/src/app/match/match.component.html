@@ -1,0 +1,28 @@
+<div class="top-container">
+	<div class="board">
+		<app-board
+			[state]="matchState">
+		</app-board>
+	</div>
+	<div class="status">
+		<app-match-state-panel [state]="matchState"></app-match-state-panel>
+	</div>
+	<div class="detectives">
+		<app-detectives-panel
+			[state]="matchState">
+		</app-detectives-panel>
+	</div>
+	<div class="mrx">
+		<app-move-history-panel
+			[state]="matchState">
+		</app-move-history-panel>
+	</div>
+	<div class="moves" *ngIf="!hasMoved">
+		<app-available-moves
+			[state]="matchState"
+			[matchId]="matchId"
+			[playerId]="playerId"
+			(selectedMove)="onSelectedMove($event)">
+		</app-available-moves>
+	</div>
+</div>

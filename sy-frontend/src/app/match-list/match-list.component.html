@@ -1,0 +1,46 @@
+<table mat-table [dataSource]="dataSource">
+	<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+	<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+	
+	<ng-container matColumnDef="match">
+		<mat-header-cell *matHeaderCellDef>Match</mat-header-cell>
+		<mat-cell *matCellDef="let match">{{match.matchName}}</mat-cell>
+	</ng-container>
+
+	<ng-container matColumnDef="board">
+		<mat-header-cell *matHeaderCellDef>Board</mat-header-cell>
+		<mat-cell *matCellDef="let match">{{match.boardName}}</mat-cell>
+	</ng-container>	
+	
+	<ng-container matColumnDef="detectives">
+		<mat-header-cell *matHeaderCellDef>Detectives</mat-header-cell>
+		<mat-cell *matCellDef="let match">{{match.detectivesJoined}} of {{match.maxDetectives}}</mat-cell>
+	</ng-container>
+	
+	<ng-container matColumnDef="actions">
+		<mat-header-cell *matHeaderCellDef></mat-header-cell>
+		<mat-cell *matCellDef="let match">
+			<button mat-raised-button *ngIf="!hasRegistrationFor(match.matchId)"
+				color="primary"
+				(click)="openNameDialog(match)">
+					Join
+			</button>
+			<button mat-raised-button *ngIf="hasRegistrationFor(match.matchId)"
+				color="primary"
+				(click)="onGotoMatch(match)">
+					Go to match!
+			</button>
+			<button mat-raised-button *ngIf="hasRegistrationFor(match.matchId)"
+				color="primary"
+				>
+					Leave match
+			</button>
+		</mat-cell>
+	</ng-container>	
+</table>
+<div>
+	<button mat-raised-button color="primary"
+		(click)="onGotoNewMatch()">
+		New match
+	</button>
+</div>

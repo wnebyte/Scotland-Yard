@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Test page for board-management-service</title>
+<script>
+function handleFormSubmit(event) {
+	var form = document.getElementById("configForm");
+	event.preventDefault();
+/*	var data = {
+		fname: form["fname"]["value"],
+		sname: form["sname"]["value"]
+	};*/
+	//document.getElementById("output").innerHTML = JSON.stringify(data);
+	document.getElementById("output").innerHTML = "Handler was called";
+}
+</script>
+</head>
+<body>
+<form id="configForm" action="">
+  <label for="nrOfDetectives">Number of detectives:</label><br>
+  <input type="number" id="nrOfDetectives" name="nrOfDetectives" value="0"><br>	
+  <label for="nrOfTurns">Number of turns:</label><br>
+  <input type="number" id="nrOfTurns" name="nrOfTurns" value="0"><br>	
+  <label for="surfacingTurns">Mr. X's surfacing turns:</label><br>
+  <input type="text" id="surfacingTurns" name="surfacingTurns"
+   value="" pattern="([0-9]+\s*[,]\s*)*[0-9]+"><br>
+  <label for="taxiPerDetective">Taxi tickets per detective:</label><br>
+  <input type="number" id="taxiPerDetective" name="taxiPerDetective" value="0"><br>		
+  <label for="busPerDetective">Bus tickets per detective:</label><br>
+  <input type="number" id="busPerDetective" name="busPerDetective" value="0"><br>		
+  <label for="undergroundPerDetective">Underground tickets per detective:</label><br>
+  <input type="number" id="undergroundPerDetective" name="undergroundPerDetective" value="0"><br>		
+  <label for="blackPerDetective">Black tickets per detective:</label><br>
+  <input type="number" id="blackPerDetective" name="blackPerDetective" value="0"><br>		
+  <label for="taxiForMrX">Taxi tickets for Mr. X:</label><br>
+  <input type="number" id="taxiForMrX" name="taxiForMrX" value="0"><br>		
+  <label for="busForMrX">Bus tickets for Mr. X:</label><br>
+  <input type="number" id="busForMrX" name="busForMrX" value="0"><br>		
+  <label for="undergroundForMrX">Underground tickets for Mr. X:</label><br>
+  <input type="number" id="undergroundForMrX" name="undergroundForMrX" value="0"><br>		
+  <label for="blackPerDetective">Black tickets for Mr. X:</label><br>
+  <input type="number" id="blackForMrX" name="blackForMrX" value="0"><br>  
+  <input type="submit" value="Submit">
+</form>
+<p id="output"></p>
+<script>
+document.getElementById("configForm").addEventListener('submit', handleFormSubmit);
+</script>
+</body>
+</html>

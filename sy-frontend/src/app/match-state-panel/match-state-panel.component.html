@@ -1,0 +1,21 @@
+<div>
+	It is turn #{{state.turn}}.
+</div>
+<div *ngIf="isSurfacingTurn">
+	Mr. X has surfaced at {{mrxPosition}}.
+</div>
+<div>
+	Mr. X will surface next in turn #{{nextSurfacingTurn}}.
+</div>
+<div *ngIf="state.turnState=='DETECTIVES_MOVING'">
+	Detectives are moving...
+</div>
+<div *ngIf="state.turnState=='MRX_MOVING'">
+	Mr. X is on the run...
+</div>	
+<div *ngIf="state.turnState=='DETECTIVES_WON'">
+	You've seized Mr. X! The detectives won!
+</div>
+<div *ngIf="state.turnState=='MRX_WON'">
+	Mr. X has escaped! The detectives lost!
+</div>

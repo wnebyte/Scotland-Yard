@@ -1,0 +1,4 @@
+<h4>Mr. X's moves</h4>
+<mat-grid-list cols="3" rowHeight="20px">
+  <mat-grid-tile *ngFor="let ticket of tickets; index as i">{{i+1}}. {{ticket}}</mat-grid-tile>
+</mat-grid-list>
