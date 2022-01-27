@@ -13,10 +13,12 @@ public class Board implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Board londonBoard;
+	private static final Board londonBoard;
 
 	private final UUID id;
+
 	private String name = "";
+
 	private List<Node> nodes = new ArrayList<>();
 	
 	static {
@@ -34,7 +36,6 @@ public class Board implements Serializable {
 		this("");
 	}
 
-	
 	public static Board create() {
 		return londonBoard;
 	}
