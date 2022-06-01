@@ -37,6 +37,12 @@ public class Link implements Serializable {
 	public void setType(TransportType type) {
 		this.type = type;
 	}
-	
+
+	@Override
+	public String toString() {
+		return String.format(
+				"(%d, %d, %s)", nodes[0], nodes[1], type
+		);
+	}
 	
 }

@@ -1,12 +1,8 @@
 package se.kau.cs.sy.board;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.UUID;
+import java.util.*;
+
 import se.kau.cs.sy.util.FileHandler;
 
 public class Board implements Serializable {
@@ -22,7 +18,7 @@ public class Board implements Serializable {
 	private List<Node> nodes = new ArrayList<>();
 	
 	static {
-		 londonBoard = loadMap();
+		 londonBoard = loadStubMap();
 		 londonBoard.setName("London");
 	}
 	
@@ -59,7 +55,14 @@ public class Board implements Serializable {
 	public Set<Link> getLinks(int node) {
 		return getLinks(node, TransportType.UNKNOWN);
 	}
-	
+
+	/**
+	 * Returns the Links that can be traversed using the specified <code>TransportType</code> for the
+	 * <code>Node</code> with the specified index.
+	 * @param node the index of the node.
+	 * @param type the TransportType.
+	 * @return the result.
+	 */
 	public Set<Link> getLinks(int node, TransportType type) {
 		Set<Link> links = nodes.get(node).getLinks();
 		if (type != TransportType.UNKNOWN) {
@@ -67,15 +70,27 @@ public class Board implements Serializable {
 		}
 		return links; 
 	}
-	
+
+	/**
+	 * Returns the <code>Location</code> of the <code>Node</code> with the specified index.
+	 * @param node the index of the node.
+	 * @return the result.
+	 */
 	public Location getLocation(int node) {
 		return nodes.get(node).getLocation();
 	}
 	
 	public Set<Integer> getNeighbourNodes(int node) {
-			return getNeighbourNodes(node, TransportType.UNKNOWN);
+		return getNeighbourNodes(node, TransportType.UNKNOWN);
 	}
-	
+
+	/**
+	 * Returns the index of each <code>Node</code> that neighbours the Node with the specified index
+	 * whose <code>Link</code> can be traversed using the specified <code>TransportType</code>.
+	 * @param node the index of the node.
+	 * @param type the <code>TransportType</code>.
+	 * @return the result.
+	 */
 	public Set<Integer> getNeighbourNodes(int node, TransportType type) {
 		Set<Integer> result = new HashSet<>();
 		Set<Link> links = this.getLinks(node, type);
@@ -102,24 +117,72 @@ public class Board implements Serializable {
 	public boolean nodeExists(int number) {
 		return number > 0 && number <= lastNodeIndex();
 	}
+
+	public List<Integer> shortestPath(int nodeA, int nodeB) {
+		Queue<Integer> queue = new LinkedList<>();
+		Map<Integer, Boolean> visited = new HashMap<>();
+		Map<Integer, Integer> preceding = new HashMap<>();
+		boolean solved = false;
+		visited.put(nodeA, true);
+		queue.add(nodeA);
+
+		while (!queue.isEmpty()) {
+			int currentNode = queue.poll();
+			for (int node : getNeighbourNodes(currentNode)) {
+				if (!visited.containsKey(node)) {
+					visited.put(node, true);
+					queue.add(node);
+					preceding.put(node, currentNode);
+					if (node == nodeB) {
+						queue.clear();
+						solved = true;
+						break;
+					}
+				}
+			}
+		}
+		if (solved) {
+			int node = nodeB;
+			List<Integer> path = new ArrayList<>();
+			while (node != nodeA) {
+				path.add(node);
+				node = preceding.get(node);
+			}
+			Collections.reverse(path);
+			return path;
+		} else {
+			return null;
+		}
+	}
+
+	public Set<Integer> athop(Set<Integer> nodes, Collection<TransportType> types) {
+		if (nodes == null || types.isEmpty()) return nodes;
+		Queue<TransportType> queue = new LinkedList<>(types);
+		TransportType type = queue.poll();
+		Set<Integer> neighbours = new HashSet<>();
+		for (int node : nodes) {
+			Set<Integer> c = getNeighbourNodes(node, type);
+			neighbours.addAll(c);
+		}
+		return athop(neighbours, queue);
+	}
 	
 	private static Board loadMap() {
       	Board map = new Board();
         try {
-  			FileHandler mapHandler = new FileHandler("scotmap.txt"); // se/kau/cs/sy/scotmap.txt
+  			FileHandler mapHandler = new FileHandler("scotmap-large.txt"); // se/kau/cs/sy/scotmap.txt
 			// RandomAccessFile map=new RandomAccessFile(f,"r");
 			String buffer=mapHandler.readLine();
 			StringTokenizer token;
 			token=new StringTokenizer(buffer);
 			int nrNodes=Integer.parseInt(token.nextToken());
-			Location locs[] = readMapPositions();
+			Location[] locs = readMapPositions();
 			for (int i = 0; i < nrNodes; i++ ) {
 				Node newNode = new Node(i);
 				newNode.setLocation(locs[i]);
 				map.nodes.add(newNode);
 			}
-			
-			
+
 			buffer=mapHandler.readLine();
 			while(buffer!=null && buffer.trim().length()>0) {
 				token=new StringTokenizer(buffer);
@@ -144,13 +207,15 @@ public class Board implements Serializable {
 	    }
 	return map;
 	}
- 
-	
+
+	private static Board loadStubMap() {
+		return new Board();
+	}
+
 	private static Location[] readMapPositions() {
-	
-    	Location result[] = null;
+    	Location[] result = null;
         try {
-    		FileHandler map = new FileHandler("scotmapg.txt"); // se/kau/cs/sy/scotmapg.txt
+    		FileHandler map = new FileHandler("scotmapg-large.txt"); // se/kau/cs/sy/scotmapg.txt
         		
 			String buffer = map.readLine();
 			StringTokenizer token;

@@ -1,6 +1,8 @@
 package se.kau.cs.sy.board.test;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.junit.Test;
 import se.kau.cs.sy.board.Board;
@@ -43,5 +45,20 @@ public class TestMap {
 		expected.add(58);
 		assertTrue("Set of bus neighbours for node 1 is wrong: " + neighbours.toString(),
 				neighbours.containsAll(expected) && expected.containsAll(neighbours));
+	}
+
+	@Test
+	public void testShortestPathFrom0To1() {
+		Board map = Board.create();
+		List<Integer> path = map.shortestPath(0, 1);
+		assertNull(path);
+	}
+
+	@Test
+	public void testShortestPathFrom22To55() {
+		Board map = Board.create();
+		List<Integer> path = map.shortestPath(22, 55);
+		assertNotNull(path);
+		System.out.println(Arrays.toString(path.toArray()));
 	}
 }

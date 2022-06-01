@@ -38,16 +38,20 @@ import se.kau.cs.sy.transfer.match.state.MatchStateDTO;
 @RestController
 public class MatchManagementController {
 
-	private RestTemplate restTemplate;
+	private final RestTemplate restTemplate;
 
-	private ObjectMapper mapper;
+	private final ObjectMapper mapper;
 
-	private MatchManagementIntegration integration;
+	private final MatchManagementIntegration integration;
 	
-	private MatchStorage storage;
+	private final MatchStorage storage;
 	
 	@Autowired
-	public MatchManagementController(MatchManagementIntegration integration, RestTemplate restTemplate, ObjectMapper mapper) {
+	public MatchManagementController(
+			MatchManagementIntegration integration,
+			RestTemplate restTemplate,
+			ObjectMapper mapper
+	) {
 		this.integration = integration;
 		this.mapper = mapper;
 		this.restTemplate = restTemplate;
@@ -141,7 +145,6 @@ public class MatchManagementController {
 		return null;
 	}
 
-	
 	@MessageMapping("/matches/{matchId}/moves")
 	@SendTo("/topic/{matchId}/moves")
 	public MoveResponseDTO move(@DestinationVariable UUID matchId,  MoveDTO move) {

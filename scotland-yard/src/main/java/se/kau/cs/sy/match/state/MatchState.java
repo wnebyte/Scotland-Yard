@@ -26,15 +26,15 @@ import se.kau.cs.sy.match.PlayerRole;
  */
 public class MatchState {
 
-	private Match match;
+	private final Match match;
 	
-	private Map<Player, PlayerState> playerStates;
+	private final Map<Player, PlayerState> playerStates;
 
 	private int turnNumber;
 
 	private TurnState turnState;
 	
-	private Map<Player, Move> scheduledDetectiveMoves;
+	private final Map<Player, Move> scheduledDetectiveMoves;
 	
 	/**
 	 * Creates an initial match state, i.e. it is the first turn and it is M. X's turn.
@@ -189,7 +189,7 @@ public class MatchState {
 		PlayerState ps = getPlayerState(player);
 		Set<Link> links = match.getBoard().getLinks(ps.position);
 		for (Link link : links) {
-			int linkEnds[] = link.getNodes();
+			int[] linkEnds = link.getNodes();
 			int neighbour = linkEnds[0] == ps.getPosition() ? linkEnds[1] : linkEnds[0]; 
 			Move regMove = new Move(player, neighbour, link.getType(), false);
 			Move blkMove = new Move(player, neighbour, link.getType(), true);

@@ -38,23 +38,23 @@ import se.kau.cs.sy.util.GeneralUtils;
  */
 public class Match {
 
-	private UUID id;
+	private final UUID id;
 
-	private List<MatchState> states = new ArrayList<>();
+	private final List<MatchState> states = new ArrayList<>();
 
-	private List<TransportType> mrxHistory = new ArrayList<>();
+	private final List<TransportType> mrxHistory = new ArrayList<>();
 
-	private Set<Player> detectives = new HashSet<Player>();
+	private final Set<Player> detectives = new HashSet<Player>();
 
 	private Player mrx = null;
 	
-	private MatchConfiguration config;
+	private final MatchConfiguration config;
 
 	private Phase phase;
 	
-	private Set<MatchEventListener> eventListeners = new HashSet<>();
+	private final Set<MatchEventListener> eventListeners = new HashSet<>();
 	
-	public static enum Phase {
+	public enum Phase {
 		INIT,
 		RUNNING,
 		FINISHED
@@ -188,7 +188,6 @@ public class Match {
 			.build();
 		return ps;
 	}
-	
 	
 	/**
 	 * Registers player as detective.

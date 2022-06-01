@@ -12,6 +12,7 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+	implementation 'org.neo4j.driver:neo4j-java-driver-spring-boot-starter:4.3.6.0'
 	implementation project(':scotland-yard')
 }
 

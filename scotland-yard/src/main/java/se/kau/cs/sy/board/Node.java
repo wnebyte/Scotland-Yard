@@ -1,6 +1,7 @@
 package se.kau.cs.sy.board;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -52,6 +53,12 @@ public class Node implements Serializable {
 	//Only for json deserialization
 	public void setLinks(Set<Link> links) {
 		this.links = links;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("se.kau.cs.sy.board.Node(id: %d, links: %s)",
+				id, Arrays.toString(links.toArray()));
 	}
 
 }

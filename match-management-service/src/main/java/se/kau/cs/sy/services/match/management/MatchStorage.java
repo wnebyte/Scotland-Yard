@@ -14,11 +14,11 @@ public class MatchStorage {
 		return instance;
 	}
 
-	private static MatchStorage instance = new MatchStorage();
+	private static final MatchStorage instance = new MatchStorage();
 
-	private Map<UUID, Match> matches;
+	private final Map<UUID, Match> matches;
 
-	private Map<UUID, String> matchNames;
+	private final Map<UUID, String> matchNames;
 	
 	private MatchStorage() {
 		matches = new ConcurrentHashMap<>();

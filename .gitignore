@@ -30,3 +30,6 @@ out
 .txt
 # Avoid ignoring resource txt files
 !resources/*.txt
+
+# Ignore images
+images
