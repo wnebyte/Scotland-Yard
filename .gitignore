@@ -32,4 +32,4 @@ out
 !resources/*.txt
 
 # Ignore images
-images
+!images
